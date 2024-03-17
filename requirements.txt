@@ -25,6 +25,7 @@ DateTime==5.4
 debugpy==1.8.1
 decorator==5.1.1
 defusedxml==0.7.1
+distlib==0.3.8
 emoji==2.10.1
 executing==2.0.1
 fastjsonschema==2.19.1
@@ -91,6 +92,7 @@ param==2.0.2
 parso==0.8.3
 patsy==0.5.6
 pillow==10.2.0
+pipenv==2023.12.1
 platformdirs==4.2.0
 plotly==5.19.0
 plotly-express==0.4.0
@@ -151,6 +153,7 @@ uritools==4.0.2
 urlextract==1.9.0
 urllib3==2.2.1
 validators==0.22.0
+virtualenv==20.25.1
 watchdog==4.0.0
 wcwidth==0.2.13
 webcolors==1.13
