@@ -4,6 +4,6 @@ collection
 emoji
 streamlit
 regex
-matploltlib
+matplotlib
 seaborn
 wordcloud
