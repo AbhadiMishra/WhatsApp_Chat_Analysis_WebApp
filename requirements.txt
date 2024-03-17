@@ -4,9 +4,6 @@ collection
 emoji
 streamlit
 regex
-
-string
-urlextract
 matploltlib
 seaborn
 wordcloud
