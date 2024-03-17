@@ -1,6 +1,6 @@
 pandas
 numpy
-collections
+collection
 emoji
 streamlit
 regex
