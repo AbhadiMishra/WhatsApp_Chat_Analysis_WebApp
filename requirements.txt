@@ -7,4 +7,3 @@ regex
 matplotlib
 seaborn
 wordcloud
-urlextract

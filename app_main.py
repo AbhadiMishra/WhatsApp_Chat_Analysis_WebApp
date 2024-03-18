@@ -306,7 +306,7 @@ def main():
     # Chat Insights
     elif page == "Chat Insights":
 
-        @st.cache_data
+        #@st.cache_data
         def chat_in():
             if "df" in st.session_state:
                 df = st.session_state.df
@@ -471,7 +471,7 @@ def main():
 
             if plot == "Busiest_Hours in a day":
 
-                @st.cache_data
+                #@st.cache_data
                 def heatmap_():
                     plt.figure(figsize=(25, 15))
                     sns.heatmap(
@@ -491,7 +491,7 @@ def main():
 
             elif plot == "Busiest_Month":
 
-                @st.cache_data
+                #@st.cache_data
                 def busyMonth():
                     busy_month = df["Month"].value_counts()
                     colors = plt.cm.viridis(np.linspace(0, 1, len(busy_month)))
@@ -506,7 +506,7 @@ def main():
 
             elif plot == "Busiest_Day":
 
-                @st.cache_data
+                #@st.cache_data
                 def busyDay():
                     Busy_day = df["Day_name"].value_counts()
                     colors = plt.cm.viridis(np.linspace(0, 1, len(Busy_day)))
@@ -520,7 +520,7 @@ def main():
                 busyDay()
             elif plot == "Monthly_Timeline":
 
-                @st.cache_data
+                #@st.cache_data
                 def monthly_():
                     timeline = (
                         df.groupby(["Year", "Month_No", "Month"])
@@ -543,7 +543,7 @@ def main():
                 monthly_()
             elif plot == "Daily_Timeline":
 
-                @st.cache_data
+                #@st.cache_data
                 def daily_():
                     daily_timeline = (
                         df.groupby("Only_date").count()["Message"].reset_index()
@@ -559,7 +559,7 @@ def main():
             elif plot == "Word_Cloud":
                 from wordcloud import WordCloud
 
-                @st.cache_data
+                #@st.cache_data
                 def wordcloud_():
                     words = df["Message"]
                     text = " ".join(words)
