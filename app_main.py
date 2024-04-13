@@ -386,7 +386,7 @@ def main():
         # Chat Insights
         with page6:
 
-            @st.cache_data
+            # @st.cache_data
             def chat_in():
                 if "df" in st.session_state:
                     df = st.session_state.df
