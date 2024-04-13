@@ -88,17 +88,87 @@ def main():
             )
 
             st.markdown(
-                """<h5 style="font-size:20; color:#CD853F;font-family:monospace"><u>Methodology (in swift):</u></h5>
-            <ol style="font-size:18; color:#E0FFFF; text-align:justify;text-justify: initial;font-family:monospace">
-            <li><b>Importing Libraries</b>: Various libraries like re, nltk, pandas, numpy, emoji, collections, and matplotlib.pyplot` are imported.</li>
-            <li><b>Loading Chat Data</b>: The WhatsApp Chat data is loaded from a text file.</li>
-            <li><b>Dataprocessing</b>: Text data is preprocessed and cleaned for further analysis. This involves date & time extraction, emoji extraction, 
-            word frequency count, and so on.</li>
-            <li><b>Creating DataFrame</b>: A pandas DataFrame is created store the processed chat data.</li>
-            <li><b>Information Extraction</b>: Important features are extracted from the data such as top users, daily timeline, monthly, busiest day and month, and so on.</li>
-            <li><b>Data Description</b>: Descriptive statistics is computed on the data.</li>
-            <li><b>Plotting Graphs</b>: Graphs and charts like heatmaps and word clouds are generated to visualize the chat data and draw meaningful insights.</li>
-            </ol>""",
+                """<table border="1" style="border-collapse: collapse; width: 100%;">
+  <thead>
+    <tr>
+      <th colspan="2" style="text-align: center; background-color: #f2f2f2; padding: 10px;">Project Initiation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td colspan="2" align="center" style="background-color: #e6f7ff; padding: 10px;">Part I: WhatsApp Chat Analysis</td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">
+        <b>1. Data Collection</b>
+      </td>
+      <td style="vertical-align: top;">
+        <b>2. Preprocessing</b>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">
+        <ul>
+          <li>Objective Refinement and Literature Review</li>
+          <li>Dataset Acquisition</li>
+          <li>Data Pre-processing</li>
+          <li>Technological Integration</li>
+          <li>Emoji Handling</li>
+        </ul>
+      </td>
+      <td style="vertical-align: top;">
+        <ul>
+          <li>Message Statistics and NLP</li>
+          <li>Emoji Analysis and NLP</li>
+          <li>Interactive Visualization and NLP</li>
+          <li>Interdisciplinary Insights</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2" align="center" style="background-color: #e6f7ff; padding: 10px;">Part II: Sentiment Classification</td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">
+        <b>1. Data Collection</b>
+      </td>
+      <td style="vertical-align: top;">
+        <b>2. Preprocessing</b>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">
+        <ul>
+          <li>Dataset Overview</li>
+          <li>Data Cleaning</li>
+          <li>Feature Extraction</li>
+        </ul>
+      </td>
+      <td style="vertical-align: top;">
+        <ul>
+          <li>Model Selection</li>
+          <li>Training</li>
+          <li>Visualization</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2" style="background-color: #e6f7ff; padding: 10px;">
+        <b>3. Classification and Analysis</b>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2" style="vertical-align: top;">
+        <ul>
+          <li>Making Predictions</li>
+          <li>Evaluation Metrics</li>
+          <li>Analysis</li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+""",
                 unsafe_allow_html=True,
             )
 
