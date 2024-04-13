@@ -49,6 +49,7 @@ def message_data(line):
 
 # Streamlit app
 def main():
+    st.title("WhatsApp Chat Analysis")
     flow = st.sidebar.radio("Menu", ["Home", "Chat Analysis", "Sentiment Analysis"])
 
     if flow == "Home":
@@ -153,7 +154,7 @@ def main():
       </td>
     </tr>
     <tr>
-      <td colspan="2" style="background-color: #e6f7ff; padding: 10px; color: rgb(0,0,0)">
+      <td colspan="2" style="padding: 10px; color: rgb(255,255,255)">
         <b>3. Classification and Analysis</b>
       </td>
     </tr>
