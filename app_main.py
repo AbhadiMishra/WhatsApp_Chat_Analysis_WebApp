@@ -91,12 +91,12 @@ def main():
                 """<table border="1" style="border-collapse: collapse; width: 100%;">
   <thead>
     <tr>
-      <th colspan="2" style="text-align: center; background-color: #f2f2f2; padding: 10px;">Project Initiation</th>
+      <th colspan="2" style="text-align: center; background-color: #f2f2f2; padding: 10px; font-color: rgb(0,0,0)">Project Initiation</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td colspan="2" align="center" style="background-color: #e6f7ff; padding: 10px;">Part I: WhatsApp Chat Analysis</td>
+      <td colspan="2" align="center" style="background-color: #e6f7ff; padding: 10px;font-color: rgb(0,0,0)">Part I: WhatsApp Chat Analysis</td>
     </tr>
     <tr>
       <td style="vertical-align: top;">
@@ -126,7 +126,7 @@ def main():
       </td>
     </tr>
     <tr>
-      <td colspan="2" align="center" style="background-color: #e6f7ff; padding: 10px;">Part II: Sentiment Classification</td>
+      <td colspan="2" align="center" style="background-color: #e6f7ff; padding: 10px; font-color: rgb(0,0,0)">Part II: Sentiment Classification</td>
     </tr>
     <tr>
       <td style="vertical-align: top;">
@@ -153,7 +153,7 @@ def main():
       </td>
     </tr>
     <tr>
-      <td colspan="2" style="background-color: #e6f7ff; padding: 10px;">
+      <td colspan="2" style="background-color: #e6f7ff; padding: 10px; font-color: rgb(0,0,0)">
         <b>3. Classification and Analysis</b>
       </td>
     </tr>
