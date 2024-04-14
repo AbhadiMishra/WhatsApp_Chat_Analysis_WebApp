@@ -14,6 +14,8 @@ st.markdown(
 
 
 # Function to extract date and time
+
+
 def date_time(s):
     pattern = (
         r"^([0-9]+)(\/)([0-9]+)(\/)([0-9]+), ([0-9]+):([0-9]+)([ ]|.)?(AM|PM|am|pm)? -"
@@ -25,6 +27,8 @@ def date_time(s):
 
 
 # Function to extract author
+
+
 def messenger(s):
     s = s.split(":", 1)
     if len(s) == 2:
@@ -34,6 +38,8 @@ def messenger(s):
 
 
 # Function to extract message data
+
+
 def message_data(line):
     splitline = line.split(" - ")
     dateTime = splitline[0]
@@ -49,20 +55,20 @@ def message_data(line):
 
 
 # Streamlit app
+
+
 def main():
 
     # Initialize session state to keep track of visited pages
+
     if "visited_pages" not in st.session_state:
         st.session_state.visited_pages = set()
-
     page = st.sidebar.radio(
         "Menu",
         [
             "Home",
-            "Introduction",
             "Upload File",
             "View Chat",
-            "View Statistics",
             "Process Chat",
             "Chat Insights",
             "Sentiment Analysis",
@@ -71,25 +77,26 @@ def main():
     )
 
     if page == "Home":
-        st.markdown(
-            "<div style='position: relative;'><h1 style='color:#32CD32;'><i class='fab fa-whatsapp style='font-size: 48px;''></i> WhatsApp Chat Analysis</h1></div>",
-            unsafe_allow_html=True,
-        )
+        Home, Introduction = st.tabs(["Home", "Introduction"])
+        with Home:
+            st.markdown(
+                "<div style='position: relative;'><h1 style='color:#32CD32;'><i class='fab fa-whatsapp style='font-size: 48px;''></i> WhatsApp Chat Analysis</h1></div>",
+                unsafe_allow_html=True,
+            )
 
-        st.markdown(
-            """<div style='position: relative;'><h4 style=' color:#90EE90;'><i class='fa-solid fa-user-group style='font-size:22px;'></i> 
+            st.markdown(
+                """<div style='position: relative;'><h4 style=' color:#90EE90;'><i class='fa-solid fa-user-group style='font-size:22px;'></i> 
                     Group Info: <br><br> <ul style="color: #90EE90;font-family:monospace"><li> Abhinav Mishra <br><li> Avaneesh Singh</ol></h4></div>""",
-            unsafe_allow_html=True,
-        )
-        st.markdown(
-            '<hr style="border-width:1px;color:DarkSlateBlue; background-color:#F0E68C ;border:none; height:4px">',
-            unsafe_allow_html=True,
-        )
+                unsafe_allow_html=True,
+            )
+            st.markdown(
+                '<hr style="border-width:1px;color:DarkSlateBlue; background-color:#F0E68C ;border:none; height:4px">',
+                unsafe_allow_html=True,
+            )
+        with Introduction:
 
-    if page == "Introduction":
-
-        st.markdown(
-            """
+            st.markdown(
+                """
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WhatsApp Chat Analysis</title>
     <head>
@@ -161,11 +168,11 @@ def main():
 
 
 """,
-            unsafe_allow_html=True,
-        )
+                unsafe_allow_html=True,
+            )
 
-        st.markdown(
-            """<table border="1" style="border-collapse: collapse; width: 100%;">
+            st.markdown(
+                """<table border="1" style="border-collapse: collapse; width: 100%;">
   <thead>
     <tr>
       <th colspan="2" style="text-align: center; background-color: #f2f2f2; padding: 10px; color: rgb(0,0,0)">Project Initiation</th>
@@ -246,10 +253,10 @@ def main():
   </tbody>
 </table>
 """,
-            unsafe_allow_html=True,
-        )
-
+                unsafe_allow_html=True,
+            )
     # File uploader
+
     if page == "Upload File":
         st.markdown(
             """<h1 style="font-size:20; color:#F0E68C ;font-family:monospace"><u>Upload chat file (.txt)</u></h1>""",
@@ -278,7 +285,6 @@ def main():
                         messageBuffer.append(message)
                     else:
                         messageBuffer.append(line)
-
                 df = pd.DataFrame(data, columns=["Date", "Time", "Author", "Message"])
                 df = df.dropna()
 
@@ -287,14 +293,15 @@ def main():
                 #     author: f"Sender {i+1}" for i, author in enumerate(authors)
                 # }
                 # df["Author"].replace(author_mapping, inplace=True)
+
                 st.session_state.df = df
                 new_df = pd.DataFrame(
                     data, columns=["Date", "Time", "Author", "Message"]
                 )
                 st.session_state.new_df = new_df
                 st.session_state.visited_pages = set()
-
     # View DataFrame
+
     elif page == "View Chat":
         if "View DataFrame" not in st.session_state.visited_pages:
             if "df" in st.session_state:
@@ -306,30 +313,8 @@ def main():
                     st.dataframe(st.session_state.df, width=1000, height=600)
             else:
                 st.warning("Please upload the chat file, before proceeding.")
-
-    # View Statistics
-    elif page == "View Statistics":
-        if "View Statistics" not in st.session_state.visited_pages:
-            if "df" in st.session_state:
-                st.markdown(
-                    "<h4 style='font-size:18; color:#E0FFFF; text-align:justify;text-justify: initial;font-family:monospace'>Viewing DataFrame Stats:</h4><br>",
-                    unsafe_allow_html=True,
-                )
-                with st.echo():
-                    st.write(st.session_state.df.describe())
-                st.markdown(
-                    """
-                <h5 style="font-size:20; color:#E0FFFF;font-family:monospace"><u>Overview of the above description:</u></h5>
-                <p style="font-size:18; color:#E0FFFF;text-align:justify;text-justify: initial;font-family:monospace">
-                The df.describe() function in pandas is like a summary report for your data. It gives you a quick overview of the main statistics for each column (or feature) in your DataFrame. Here's what it tells you:
-	            <p style="font-size:18; font-weight:600;color:#E0FFFF;text-align:justify;text-justify: initial;font-family:monospace">
-                By running df.describe(), we can quickly get a sense of the data's distribution, identify potential outliers, and understand the basic statistics of each feature in your DataFrame. It's a helpful starting point for data exploration and analysis in pandas.
-                </p>""",
-                    unsafe_allow_html=True,
-                )
-            else:
-                st.warning("Please upload the chat file, before proceeding.")
     # Process Chat
+
     elif page == "Process Chat":
         if "Process Chat" not in st.session_state.visited_pages:
             if "df" in st.session_state:
@@ -347,15 +332,18 @@ def main():
                 import time
 
                 # Define the progress bar
+
                 progress_bar = st.progress(0)
 
                 # Define the background task
+
                 for i in range(95):
                     # Update the progress bar every 0.1 seconds
+
                     time.sleep(0.05)
                     progress_bar.progress(i + 1)
-
                 # removing hinglish & english stopwords
+
                 def remove_stop_words(message):
                     f = open("stop_hinglish.txt", "r", encoding="utf-8")
                     stop_words = f.read().split()
@@ -371,6 +359,7 @@ def main():
                     import nltk
 
                     # nltk.download("stopwords")
+
                     words = nltk.word_tokenize(df["Message"])
                     stop_words = nltk.corpus.stopwords.words("english")
                     filtered_words = [
@@ -378,6 +367,7 @@ def main():
                     ]
 
                     # Join the filtered words back into a sentence
+
                     filtered_text = " ".join(filtered_words)
 
                 def remove_stopwords(message):
@@ -385,6 +375,7 @@ def main():
 
                     nltk.download("stopwords")
                     # words = nltk.word_tokenize(df["Message"])
+
                     stop_words = nltk.corpus.stopwords.words("english")
                     words = message.split()
                     filtered_words = [
@@ -435,6 +426,7 @@ def main():
                 df["Hour"] = df["Date&Time"].dt.hour
                 df["Minute"] = df["Date&Time"].dt.minute
                 # adding hour-to-hour period
+
                 period = []
                 for hour in df[["Day_name", "Hour"]]["Hour"]:
                     if hour == 23:
@@ -452,8 +444,10 @@ def main():
                 st.session_state.visited_pages.add("Process Chat")
 
                 # @st.cache_data
+
                 def convert_df(df):
                     # IMPORTANT: Cache the conversion to prevent computation on every rerun
+
                     return df.to_csv().encode("utf-8")
 
                 csv = convert_df(df)
@@ -473,8 +467,10 @@ def main():
             df = st.session_state.df
 
             # @st.cache_data
+
             def convert_df(df):
                 # IMPORTANT: Cache the conversion to prevent computation on every rerun
+
                 return df.to_csv().encode("utf-8")
 
             csv = convert_df(df)
@@ -485,169 +481,216 @@ def main():
                 file_name="df.csv",
                 mime="text/csv",
             )
-
     # Chat Insights
-    elif page == "Chat Insights":
 
-        # @st.cache_data
-        def chat_in():
+    elif page == "Chat Insights":
+        Stats, Insights = st.tabs(["Stats", "Insights"])
+        with Insights:
+
+            def chat_in():
+                if "df" in st.session_state:
+                    df = st.session_state.df
+                    st.markdown(
+                        "<h5 style='font-size:20; color:#E0FFFF;font-family:monospace'><u>Chat Insights:</u></h5><br>",
+                        unsafe_allow_html=True,
+                    )
+
+                    def count_message_by_sender():
+                        st.text("1. Message Count of each sender in the chat:")
+                        st.dataframe(
+                            st.session_state.df["Author"].value_counts().head()
+                        )
+
+                    def num_total_days():
+                        st.text("Total number of days the each sender was engaged:")
+                        days_count_per_sender = df.groupby(["Author"])[
+                            "Only_date"
+                        ].nunique()
+                        st.write(days_count_per_sender)
+                        st.write("Total number of days the message were sent:")
+                        total_days = df["Only_date"].nunique()
+
+                        # Display the result
+
+                        st.write(total_days)
+
+                    def percentage_message_by_sender():
+                        st.text(
+                            "2. Percentage of message each sender sent in the chat:"
+                        )
+                        st.dataframe(
+                            round(
+                                (
+                                    (
+                                        st.session_state.df["Author"].value_counts()
+                                        / st.session_state.df.shape[0]
+                                    )
+                                    * 100
+                                ),
+                                2,
+                            )
+                            .reset_index()
+                            .rename(columns={"Author": "Code_Name", "count": "Percent"})
+                        )
+
+                    def word_count():
+                        st.text("3. Total number of words present in the chat: ")
+                        words = []
+                        for message in df["Message"]:
+                            words.extend(message.split())
+                        st.write(len(words))
+
+                    def media_count(df):
+                        st.text("4. Total number of media files present in the chat: ")
+                        df["Word_Count"] = df["Message"].str.count("media omitted")
+                        WordCount = (df["Word_Count"] == 1).sum()
+                        st.write(WordCount)
+
+                    def url_count():
+                        st.text(
+                            "5. Total number of link(s)/url(s) present in the chat: "
+                        )
+
+                        new_df = st.session_state.new_df
+                        url_regex_pattern = r"(https)?(://)?(?:www\.)\w+\.\w+(?:/\S*)?"
+
+                        # Function to count URLs in a message
+
+                        def count_urls(message):
+                            return bool(re.findall(url_regex_pattern, message))
+
+                        # Filter rows with URLs
+
+                        df_with_urls = new_df[new_df["Message"].apply(count_urls)]
+
+                        # Count total number of URLs in the DataFrame
+
+                        total_url_count = (
+                            df_with_urls["Message"].apply(count_urls).sum()
+                        )
+
+                        # Display the total number of URLs found in the DataFrame
+
+                        st.write(total_url_count)
+
+                        # Display the DataFrame with rows containing URLs
+
+                        st.text("DataFrame with rows containing URLs:")
+                        st.dataframe(df_with_urls)
+
+                        # @st.cache_data
+
+                        def convert_df(df):
+                            # IMPORTANT: Cache the conversion to prevent computation on every rerun
+
+                            return df.to_csv().encode("utf-8")
+
+                        csv = convert_df(df_with_urls)
+
+                        st.download_button(
+                            label="Download as CSV",
+                            data=csv,
+                            file_name="url_count.csv",
+                            mime="text/csv",
+                        )
+
+                    def count_emoji():
+
+                        # from collections import Counter
+
+                        st.text("6. Top emoji(s) used in the chat: ")
+
+                        emojis = []
+                        for message in df["Message"]:
+                            emojis.extend([c for c in message if c in emoji.EMOJI_DATA])
+                            pd.DataFrame(
+                                Counter(emojis).most_common(len(Counter(emojis)))
+                            )
+                        emoji_count = {}
+                        for e in emojis:
+                            if e in emoji_count:
+                                emoji_count[e] += 1
+                            else:
+                                emoji_count[e] = 1
+                        emoji_count = dict(
+                            sorted(
+                                emoji_count.items(),
+                                key=lambda item: item[1],
+                                reverse=True,
+                            )
+                        )
+                        st.dataframe((dict(list(emoji_count.items()))))
+
+                    def counting_emojis():
+                        st.text("7. Emoji_count by sender: ")
+                        df["Emoji_Count"] = df["Message"].str.count(
+                            r"[\U0001F600-\U0001F64F\U0001F300-\U0001F5FF\U0001F680-\U0001F6FF\U0001F700-\U0001F77F\U0001F780-\U0001F7FF\U0001F800-\U0001F8FF\U0001F900-\U0001F9FF\U0001FA00-\U0001FA6F\U0001FA70-\U0001FAFF\U0001FAB0-\U0001FABF\U0001FAC0-\U0001FAFF\U0001FAD0-\U0001FAFF\U0001FAE0-\U0001FAFF\U0001FAF0-\U0001FAFF\U0001F4AA]"
+                        )
+                        emoji_counts = (
+                            df.groupby("Author")["Emoji_Count"]
+                            .sum()
+                            .sort_values(ascending=False)
+                        )
+                        st.write(emoji_counts[:10])
+
+                    def wordfreq_():
+                        st.text("8. Most frequent words:")
+
+                        def rem_emojis(text):
+                            return "".join(
+                                char for char in text if char not in emoji.EMOJI_DATA
+                            )
+
+                        n_df = df["Message"].apply(rem_emojis)
+                        with open("abusive_main.txt", "r") as file:
+                            words_to_remove = file.read().splitlines()
+                        for word in words_to_remove:
+                            n_df = n_df[n_df != word]
+                        n_df = n_df[n_df != "media omitted"]
+                        word_freq = collections.Counter(n_df)
+                        st.dataframe(word_freq.most_common())
+
+                    # Executing Methods:
+
+                    count_message_by_sender()
+                    num_total_days()
+                    percentage_message_by_sender()
+                    word_count()
+                    media_count(df)
+                    url_count()
+                    counting_emojis()
+                    count_emoji()
+                    wordfreq_()
+                else:
+                    st.warning("Please upload the chat file, before proceeding.")
+
+            chat_in()
+        with Stats:
+            import time
+
+            with st.spinner("Loading..."):
+                time.sleep(2)
             if "df" in st.session_state:
                 df = st.session_state.df
+
                 st.markdown(
-                    "<h5 style='font-size:20; color:#E0FFFF;font-family:monospace'><u>Chat Insights:</u></h5><br>",
+                    "<h4 style='font-size:18; color:#E0FFFF; text-align:justify;text-justify: initial;font-family:monospace'>Viewing DataFrame Stats:</h4><br>",
                     unsafe_allow_html=True,
                 )
-
-                def count_message_by_sender():
-                    st.text("1. Message Count of each sender in the chat:")
-                    st.dataframe(st.session_state.df["Author"].value_counts().head())
-
-                def num_total_days():
-                    st.text("Total number of days the each sender was engaged:")
-                    days_count_per_sender = df.groupby(["Author"])[
-                        "Only_date"
-                    ].nunique()
-                    st.write(days_count_per_sender)
-                    st.write("Total number of days the message were sent:")
-                    total_days = df["Only_date"].nunique()
-
-                    # Display the result
-                    st.write(total_days)
-
-                def percentage_message_by_sender():
-                    st.text("2. Percentage of message each sender sent in the chat:")
-                    st.dataframe(
-                        round(
-                            (
-                                (
-                                    st.session_state.df["Author"].value_counts()
-                                    / st.session_state.df.shape[0]
-                                )
-                                * 100
-                            ),
-                            2,
-                        )
-                        .reset_index()
-                        .rename(columns={"Author": "Code_Name", "count": "Percent"})
-                    )
-
-                def word_count():
-                    st.text("3. Total number of words present in the chat: ")
-                    words = []
-                    for message in df["Message"]:
-                        words.extend(message.split())
-                    st.write(len(words))
-
-                def media_count(df):
-                    st.text("4. Total number of media files present in the chat: ")
-                    df["Word_Count"] = df["Message"].str.count("media omitted")
-                    WordCount = (df["Word_Count"] == 1).sum()
-                    st.write(WordCount)
-
-                def url_count():
-                    st.text("5. Total number of link(s)/url(s) present in the chat: ")
-
-                    new_df = st.session_state.new_df
-                    url_regex_pattern = r"(https)?(://)?(?:www\.)\w+\.\w+(?:/\S*)?"
-
-                    # Function to count URLs in a message
-                    def count_urls(message):
-                        return bool(re.findall(url_regex_pattern, message))
-
-                    # Filter rows with URLs
-                    df_with_urls = new_df[new_df["Message"].apply(count_urls)]
-
-                    # Count total number of URLs in the DataFrame
-                    total_url_count = df_with_urls["Message"].apply(count_urls).sum()
-
-                    # Display the total number of URLs found in the DataFrame
-                    st.write(total_url_count)
-
-                    # Display the DataFrame with rows containing URLs
-                    st.text("DataFrame with rows containing URLs:")
-                    st.dataframe(df_with_urls)
-
-                    # @st.cache_data
-                    def convert_df(df):
-                        # IMPORTANT: Cache the conversion to prevent computation on every rerun
-                        return df.to_csv().encode("utf-8")
-
-                    csv = convert_df(df_with_urls)
-
-                    st.download_button(
-                        label="Download as CSV",
-                        data=csv,
-                        file_name="url_count.csv",
-                        mime="text/csv",
-                    )
-
-                def count_emoji():
-
-                    # from collections import Counter
-
-                    st.text("6. Top emoji(s) used in the chat: ")
-
-                    emojis = []
-                    for message in df["Message"]:
-                        emojis.extend([c for c in message if c in emoji.EMOJI_DATA])
-                        pd.DataFrame(Counter(emojis).most_common(len(Counter(emojis))))
-                    emoji_count = {}
-                    for e in emojis:
-                        if e in emoji_count:
-                            emoji_count[e] += 1
-                        else:
-                            emoji_count[e] = 1
-                    emoji_count = dict(
-                        sorted(
-                            emoji_count.items(), key=lambda item: item[1], reverse=True
-                        )
-                    )
-                    st.dataframe((dict(list(emoji_count.items()))))
-
-                def counting_emojis():
-                    st.text("7. Emoji_count by sender: ")
-                    df["Emoji_Count"] = df["Message"].str.count(
-                        r"[\U0001F600-\U0001F64F\U0001F300-\U0001F5FF\U0001F680-\U0001F6FF\U0001F700-\U0001F77F\U0001F780-\U0001F7FF\U0001F800-\U0001F8FF\U0001F900-\U0001F9FF\U0001FA00-\U0001FA6F\U0001FA70-\U0001FAFF\U0001FAB0-\U0001FABF\U0001FAC0-\U0001FAFF\U0001FAD0-\U0001FAFF\U0001FAE0-\U0001FAFF\U0001FAF0-\U0001FAFF\U0001F4AA]"
-                    )
-                    emoji_counts = (
-                        df.groupby("Author")["Emoji_Count"]
-                        .sum()
-                        .sort_values(ascending=False)
-                    )
-                    st.write(emoji_counts[:10])
-
-                def wordfreq_():
-                    st.text("8. Most frequent words:")
-
-                    def rem_emojis(text):
-                        return "".join(
-                            char for char in text if char not in emoji.EMOJI_DATA
-                        )
-
-                    n_df = df["Message"].apply(rem_emojis)
-                    with open("abusive_main.txt", "r") as file:
-                        words_to_remove = file.read().splitlines()
-                    for word in words_to_remove:
-                        n_df = n_df[n_df != word]
-                    n_df = n_df[n_df != "media omitted"]
-                    word_freq = collections.Counter(n_df)
-                    st.dataframe(word_freq.most_common())
-
-                # Executing Methods:
-                count_message_by_sender()
-                num_total_days()
-                percentage_message_by_sender()
-                word_count()
-                media_count(df)
-                url_count()
-                counting_emojis()
-                count_emoji()
-                wordfreq_()
-
+                with st.echo():
+                    st.write(st.session_state.df.describe())
+                st.markdown(
+                    """
+                <h5 style="font-size:20; color:#E0FFFF;font-family:monospace"><u>Overview of the above description:</u></h5>
+                <p style="font-size:18; color:#E0FFFF;text-align:justify;text-justify: initial;font-family:monospace">
+                The df.describe() function in pandas is like a summary report for your data. It gives you a quick overview of the main statistics for each column (or feature) in your DataFrame. Here's what it tells you:
+	            <p style="font-size:18; font-weight:600;color:#E0FFFF;text-align:justify;text-justify: initial;font-family:monospace">
+                By running df.describe(), we can quickly get a sense of the data's distribution, identify potential outliers, and understand the basic statistics of each feature in your DataFrame. It's a helpful starting point for data exploration and analysis in pandas.
+                </p>""",
+                    unsafe_allow_html=True,
+                )
             else:
                 st.warning("Please upload the chat file, before proceeding.")
-
-        chat_in()
     elif page == "Sentiment Analysis":
         if "df" in st.session_state:
             new_df = st.session_state.new_df
@@ -676,13 +719,16 @@ def main():
             model_ = load("multinomialNB799.joblib")
 
             # Making Predictions
+
             predictions = model_.predict(new_df["Message"])
 
             # converting predicted values to string labels
+
             sentiment_labels = {-1: "negative", 0: "neutral", 1: "positive"}
             predicted_sentiments = [sentiment_labels[pred] for pred in predictions]
 
             # creating final Dataframe
+
             result_df = pd.DataFrame(
                 {
                     "Sender": new_df["Author"],
@@ -692,10 +738,12 @@ def main():
             )
 
             # displaying dataframe
+
             st.dataframe(result_df, width=1500, height=700)
 
             def convert_df(df):
                 # IMPORTANT: Cache the conversion to prevent computation on every rerun
+
                 return df.to_csv().encode("utf-8")
 
             csv = convert_df(result_df)
@@ -708,7 +756,6 @@ def main():
             )
         else:
             st.warning("Please upload the chat file, before proceeding.")
-
     elif page == "Interactive Plots":
 
         if "df" in st.session_state:
@@ -754,10 +801,11 @@ def main():
                     plt.yticks(rotation="vertical")
                     fig = plt.show()
                     # Display the heatmap using st.pyplot()
+
                     st.pyplot(fig)
 
-                heatmap_()
 
+                heatmap_()
             with Busiest_Month:
 
                 def busyMonth():
@@ -765,7 +813,6 @@ def main():
                     st.bar_chart(busy_month, height=600)
 
                 busyMonth()
-
             with Busiest_Day:
 
                 def busyDay():
@@ -826,11 +873,13 @@ def main():
                     words = df["Message"]
                     text = " ".join(words)
                     # Create a WordCloud object with increased max_words
+
                     wordcloud = WordCloud(
                         width=1400, height=800, background_color="white", max_words=20
                     ).generate(text)
 
                     # Plot the WordCloud
+
                     plt.figure(figsize=(10, 10))
                     plt.imshow(wordcloud, interpolation="bilinear")
                     plt.axis("off")
@@ -838,7 +887,6 @@ def main():
                     st.pyplot(fig)
 
                 wordcloud_()
-
         else:
             st.warning("Please upload the chat file, before proceeding.")
 
