@@ -789,21 +789,28 @@ def main():
             with Busiest_Hours:
 
                 def heatmap_():
-                    plt.figure(figsize=(10, 10))
-                    sns.heatmap(
+                    plt.figure(figsize=(10, 5))
+                    ax = sns.heatmap(
                         df.pivot_table(
                             index="Day_name",
                             columns="Hour_Period",
                             values="Message",
                             aggfunc="count",
-                        ).fillna(0)
+                        ),
+                        cmap="crest",
+                        vmin=0,
+                        vmax=25,
+                        linewidths=0.5,
+                        cbar=False,
+                        square=True,
                     )
-                    plt.yticks(rotation="vertical")
+                    ax.set(xlabel="", ylabel="")
+                    ax.xaxis.tick_top()
+                    plt.xticks(rotation="vertical")
                     fig = plt.show()
                     # Display the heatmap using st.pyplot()
 
                     st.pyplot(fig)
-
 
                 heatmap_()
             with Busiest_Month:
