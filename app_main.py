@@ -77,7 +77,9 @@ def main():
     )
 
     if page == "Home":
-        Home, Introduction = st.tabs(["Home", "Introduction"])
+        Home, Introduction, Project = st.tabs(
+            ["Home", "Introduction", "Project Initialization"]
+        )
         with Home:
             st.markdown(
                 "<div style='position: relative;'><h1 style='color:#32CD32;'><i class='fab fa-whatsapp style='font-size: 48px;''></i> WhatsApp Chat Analysis</h1></div>",
@@ -97,160 +99,163 @@ def main():
 
             st.markdown(
                 """
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WhatsApp Chat Analysis</title>
-    <head>
-    <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-        th, td {
-            padding: 8px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-        th {
-            text-align: center; 
-            background-color: rgb(255,255,255); 
-            padding: 10px; 
-            color: rgb(0,0,0);
-        }
-    </style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WhatsApp Chat Analysis</title>
+<head>
+   <style>
+      table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+      }
+      th, td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+      }
+      th {
+      text-align: center; 
+      background-color: rgb(255,255,255); 
+      padding: 10px; 
+      color: rgb(0,0,0);
+      }
+   </style>
 </head>
 <body>
-
-
-
-<h3>Usage of WhatsApp Chat Analysis:</h3>
-<ul>
-    <li>Sentiment Analysis: Analyzing the overall sentiment of the chat to gauge the emotional tone of conversations.</li>
-    <li>Word Frequency Analysis: Identifying frequently used words or phrases to understand common topics of discussion.</li>
-    <li>Network Analysis: Mapping out connections between participants to understand the dynamics of the group.</li>
-    <li>Time Series Analysis: Studying the timing of messages to identify peak activity periods and patterns of communication.</li>
-    <li>Keyword Tracking: Tracking specific keywords or phrases to monitor trends or identify important topics.</li>
-</ul>
-
-<h3>Example Table for WhatsApp Chat Analysis:</h3>
-<table>
-    <tr>
-        <th>Metric</th>
-        <th>Description</th>
-        <th> Result</th>
-    </tr>
-    <tr>
-        <td>Sentiment Score</td>
-        <td>Analyzes the emotional tone of the chat</td>
-        <td>Overall positive sentiment with occasional spikes in negativity</td>
-    </tr>
-    <tr>
-        <td>Word Frequency</td>
-        <td>Most frequently used words or phrases</td>
-        <td>"Meeting", "Project", "Deadline" are frequently used words</td>
-    </tr>
-    <tr>
-        <td>Network Analysis</td>
-        <td>Mapping connections between participants</td>
-        <td>Central figure identified, with subgroups forming around specific topics</td>
-    </tr>
-    <tr>
-        <td>Peak Activity Times</td>
-        <td>Identifying peak periods of message activity</td>
-        <td>Most activity observed during lunch breaks and evenings</td>
-    </tr>
-    <tr>
-        <td>Keyword Tracking</td>
-        <td>Monitoring specific keywords or phrases</td>
-        <td>"Sales", "Report", "Client" are trending topics</td>
-    </tr>
-</table>
-
+   <h1>Analysis of WhatsApp Chats</h1>
+   <p>Analyzing WhatsApp chats can serve various purposes depending on the context:</p>
+   <ol>
+      <li><strong>Communication Patterns:</strong> Understanding how people communicate can offer insights into their relationships, interests, and behaviors. Analyzing WhatsApp chats can reveal patterns in communication frequency, topics discussed, and preferred communication styles.</li>
+      <li><strong>Sentiment Analysis:</strong> By examining the language used in WhatsApp chats, sentiment analysis can be conducted to gauge the overall mood or sentiment of the participants. This can be useful for businesses to understand customer satisfaction or for researchers studying social dynamics.</li>
+      <li><strong>Social Research:</strong> WhatsApp chats can be a rich source of data for social researchers studying various aspects of human interaction, such as language evolution, cultural norms, or group dynamics.</li>
+      <li><strong>Forensic Analysis:</strong> In legal contexts, WhatsApp chats may be analyzed forensically to gather evidence related to criminal activities or disputes. This can involve retrieving deleted messages, verifying the authenticity of conversations, or tracing communication patterns.</li>
+      <li><strong>Behavioral Analysis:</strong> Psychologists or sociologists may analyze WhatsApp chats to understand individual or group behaviors, such as decision-making processes, social influence, or the spread of information and opinions within a network.</li>
+      <li><strong>Language Study:</strong> Linguists may analyze WhatsApp chats to study language use in informal settings, including slang, emoticons, or linguistic innovations.</li>
+   </ol>
+   <p>Overall, analyzing WhatsApp chats can provide valuable insights into human communication, behavior, and social dynamics across various contexts.</p>
+   <h3>Example Table for WhatsApp Chat Analysis:</h3>
+   <table>
+      <tr>
+         <th style= 'background-color: #A9A9A9' >Metric</th>
+         <th style= 'background-color: #A9A9A9' >Description</th>
+         <th style= 'background-color: #A9A9A9' > Result</th>
+      </tr>
+      <tr>
+         <td>Sentiment Score</td>
+         <td>Analyzes the emotional tone of the chat</td>
+         <td>Overall positive sentiment with occasional spikes in negativity</td>
+      </tr>
+      <tr>
+         <td>Word Frequency</td>
+         <td>Most frequently used words or phrases</td>
+         <td>"Meeting", "Project", "Deadline" are frequently used words</td>
+      </tr>
+      <tr>
+         <td>Network Analysis</td>
+         <td>Mapping connections between participants</td>
+         <td>Central figure identified, with subgroups forming around specific topics</td>
+      </tr>
+      <tr>
+         <td>Peak Activity Times</td>
+         <td>Identifying peak periods of message activity</td>
+         <td>Most activity observed during lunch breaks and evenings</td>
+      </tr>
+      <tr>
+         <td>Keyword Tracking</td>
+         <td>Monitoring specific keywords or phrases</td>
+         <td>"Sales", "Report", "Client" are trending topics</td>
+      </tr>
+   </table>
+</body>
 
 """,
                 unsafe_allow_html=True,
             )
-
+        with Project:
             st.markdown(
                 """<table border="1" style="border-collapse: collapse; width: 100%;">
-  <thead>
-    <tr>
-      <th colspan="2" style="text-align: center; background-color: #f2f2f2; padding: 10px; color: rgb(0,0,0)">Project Initiation</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td colspan="2" align="center" style="background-color: #e6f7ff; padding: 10px; color: rgb(0,0,0)">Part I: WhatsApp Chat Analysis</td>
-    </tr>
-    <tr>
-      <td style="vertical-align: top;">
-        <b>1. Data Collection</b>
-      </td>
-      <td style="vertical-align: top;">
-        <b>2. Preprocessing</b>
-      </td>
-    </tr>
-    <tr>
-      <td style="vertical-align: top;">
-        <ul>
-          <li>Objective Refinement and Literature Review</li>
-          <li>Dataset Acquisition</li>
-          <li>Data Pre-processing</li>
-          <li>Technological Integration</li>
-          <li>Emoji Handling</li>
-        </ul>
-      </td>
-      <td style="vertical-align: top;">
-        <ul>
-          <li>Message Statistics and NLP</li>
-          <li>Emoji Analysis and NLP</li>
-          <li>Interactive Visualization and NLP</li>
-          <li>Interdisciplinary Insights</li>
-        </ul>
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2" align="center" style="background-color: #e6f7ff; padding: 10px; color: rgb(0,0,0)">Part II: Sentiment Classification</td>
-    </tr>
-    <tr>
-      <td style="vertical-align: top;">
-        <b>1. Data Collection</b>
-      </td>
-      <td style="vertical-align: top;">
-        <b>2. Preprocessing</b>
-      </td>
-    </tr>
-    <tr>
-      <td style="vertical-align: top;">
-        <ul>
-          <li>Dataset Overview</li>
-          <li>Data Cleaning</li>
-          <li>Feature Extraction</li>
-        </ul>
-      </td>
-      <td style="vertical-align: top;">
-        <ul>
-          <li>Model Selection</li>
-          <li>Training</li>
-          <li>Visualization</li>
-        </ul>
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2" style="padding: 10px; color: rgb(255,255,255)">
-        <b>3. Classification and Analysis</b>
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2" style="vertical-align: top;">
-        <ul>
-          <li>Making Predictions</li>
-          <li>Evaluation Metrics</li>
-          <li>Analysis</li>
-        </ul>
-      </td>
-    </tr>
-  </tbody>
+   <thead>
+      <tr>
+         <th colspan="3" style="text-align: center; background-color: #E0FFFF; padding: 10px; color: rgb(0,0,0)">Project Initiation</th>
+      </tr>
+   </thead>
+</table>
+<table>
+   <tbody>
+      <tr>
+         <td colspan="3" align="center" style="padding: 10px; background-color: #A9A9A9;color: rgb(0,0,0)">Part I: WhatsApp Chat Analysis</td>
+      </tr>
+      <tr>
+         <td colspan = 1.5 style="vertical-align: top;">
+            <b>1. Data Collection</b>
+         </td>
+         <td colspan = 2 style="vertical-align: top;">
+            <b>2. Preprocessing</b>
+         </td>
+      </tr>
+      <tr>
+         <td style="vertical-align: top;">
+            <ul>
+               <li>Objective Refinement and Literature Review</li>
+               <li>Dataset Acquisition</li>
+               <li>Data Pre-processing</li>
+               <li>Technological Integration</li>
+               <li>Emoji Handling</li>
+            </ul>
+         </td>
+         <td colspan = 2 style="vertical-align: top;">
+            <ul>
+               <li>Message Statistics and NLP</li>
+               <li>Emoji Analysis and NLP</li>
+               <li>Interactive Visualization and NLP</li>
+               <li>Interdisciplinary Insights</li>
+            </ul>
+         </td>
+      </tr>
+      <tr>
+   </tbody>
+   </thead>
+</table>
+<table>
+   <thead>
+   <tbody>
+      <td colspan="4" align="center" style="background-color: #A9A9A9; padding: 10px; color: rgb(0,0,0)">Part II: Sentiment Classification</td>
+      </tr>
+      <tr>
+         <td style="vertical-align: top;">
+            <b>1. Data Collection</b>
+         </td>
+         <td style="vertical-align: top;">
+            <b>2. Preprocessing</b>
+         </td>
+         <td style="padding: 10px; color: rgb(255,255,255)">
+            <b>3. Classification and Analysis</b>
+         </td>
+      </tr>
+      <tr>
+         <td style="vertical-align: top;">
+            <ul>
+               <li>Dataset Overview</li>
+               <li>Data Cleaning</li>
+               <li>Feature Extraction</li>
+            </ul>
+         </td>
+         <td style="vertical-align: top;">
+            <ul>
+               <li>Model Selection</li>
+               <li>Training</li>
+               <li>Visualization</li>
+            </ul>
+         </td>
+         <td style="vertical-align: top;">
+            <ul>
+               <li>Making Predictions</li>
+               <li>Evaluation Metrics</li>
+               <li>Analysis</li>
+            </ul>
+         </td>
+      </tr>
+   </tbody>
 </table>
 """,
                 unsafe_allow_html=True,
@@ -502,12 +507,12 @@ def main():
                         )
 
                     def num_total_days():
-                        st.text("Total number of days the each sender was engaged:")
+                        st.text("2. Total number of days the each sender was engaged:")
                         days_count_per_sender = df.groupby(["Author"])[
                             "Only_date"
                         ].nunique()
                         st.write(days_count_per_sender)
-                        st.write("Total number of days the message were sent:")
+                        st.text("3. Total number of days the message were sent:")
                         total_days = df["Only_date"].nunique()
 
                         # Display the result
@@ -516,7 +521,7 @@ def main():
 
                     def percentage_message_by_sender():
                         st.text(
-                            "2. Percentage of message each sender sent in the chat:"
+                            "4. Percentage of message each sender sent in the chat:"
                         )
                         st.dataframe(
                             round(
@@ -534,21 +539,21 @@ def main():
                         )
 
                     def word_count():
-                        st.text("3. Total number of words present in the chat: ")
+                        st.text("5. Total number of words present in the chat: ")
                         words = []
                         for message in df["Message"]:
                             words.extend(message.split())
                         st.write(len(words))
 
                     def media_count(df):
-                        st.text("4. Total number of media files present in the chat: ")
+                        st.text("6. Total number of media files present in the chat: ")
                         df["Word_Count"] = df["Message"].str.count("media omitted")
                         WordCount = (df["Word_Count"] == 1).sum()
                         st.write(WordCount)
 
                     def url_count():
                         st.text(
-                            "5. Total number of link(s)/url(s) present in the chat: "
+                            "7. Total number of link(s)/url(s) present in the chat: "
                         )
 
                         new_df = st.session_state.new_df
@@ -598,7 +603,7 @@ def main():
 
                         # from collections import Counter
 
-                        st.text("6. Top emoji(s) used in the chat: ")
+                        st.text("8. Top emoji(s) used in the chat: ")
 
                         emojis = []
                         for message in df["Message"]:
@@ -622,7 +627,7 @@ def main():
                         st.dataframe((dict(list(emoji_count.items()))))
 
                     def counting_emojis():
-                        st.text("7. Emoji_count by sender: ")
+                        st.text("9. Emoji_count by sender: ")
                         df["Emoji_Count"] = df["Message"].str.count(
                             r"[\U0001F600-\U0001F64F\U0001F300-\U0001F5FF\U0001F680-\U0001F6FF\U0001F700-\U0001F77F\U0001F780-\U0001F7FF\U0001F800-\U0001F8FF\U0001F900-\U0001F9FF\U0001FA00-\U0001FA6F\U0001FA70-\U0001FAFF\U0001FAB0-\U0001FABF\U0001FAC0-\U0001FAFF\U0001FAD0-\U0001FAFF\U0001FAE0-\U0001FAFF\U0001FAF0-\U0001FAFF\U0001F4AA]"
                         )
@@ -634,7 +639,7 @@ def main():
                         st.write(emoji_counts[:10])
 
                     def wordfreq_():
-                        st.text("8. Most frequent words:")
+                        st.text("10. Most frequent words:")
 
                         def rem_emojis(text):
                             return "".join(
@@ -658,18 +663,15 @@ def main():
                     word_count()
                     media_count(df)
                     url_count()
-                    counting_emojis()
                     count_emoji()
+                    counting_emojis()
                     wordfreq_()
                 else:
                     st.warning("Please upload the chat file, before proceeding.")
 
             chat_in()
         with Stats:
-            import time
 
-            with st.spinner("Loading..."):
-                time.sleep(2)
             if "df" in st.session_state:
                 df = st.session_state.df
 
@@ -714,6 +716,7 @@ def main():
             ]
             new_df["Message"] = new_df["Message"].apply(rem_emojis)
 
+            
             from joblib import load
 
             model_ = load("multinomialNB799.joblib")
@@ -740,6 +743,7 @@ def main():
             # displaying dataframe
 
             st.dataframe(result_df, width=1500, height=700)
+            st.markdown("<hr style= 'width : 5'>", unsafe_allow_html=True)
 
             def convert_df(df):
                 # IMPORTANT: Cache the conversion to prevent computation on every rerun
