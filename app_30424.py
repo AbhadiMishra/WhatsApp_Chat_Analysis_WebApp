@@ -359,6 +359,8 @@ def main():
                 def remove_stopwords(message):
                     import nltk
 
+                    nltk.download("stopwords")
+
                     stop_words = nltk.corpus.stopwords.words("english")
                     words = message.split()
                     filtered_words = [
