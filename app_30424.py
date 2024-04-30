@@ -68,11 +68,11 @@ def main():
         [
             "Home",
             "Upload File",
-            "View Chat",
             "Process Chat",
+            "View Chat",
             "Chat Insights",
-            "Sentiment Analysis",
             "Interactive Plots",
+            "Sentiment Analysis",
         ],
     )
 
@@ -328,27 +328,23 @@ def main():
                 with st.spinner("Loading..."):
                     time.sleep(2)
                 st.subheader("Processing Chat Data")
-                st.warning(
+                st.info(
                     "Please wait - Do not switch pages, Until process completes/terminated."
                 )
 
                 df = st.session_state.df
                 df.reset_index(drop=True, inplace=True)
-                import time
 
                 # Define the progress bar
-
                 progress_bar = st.progress(0)
 
                 # Define the background task
-
                 for i in range(95):
                     # Update the progress bar every 0.1 seconds
-
                     time.sleep(0.05)
                     progress_bar.progress(i + 1)
-                # removing hinglish & english stopwords
 
+                # removing hinglish & english stopwords
                 def remove_stop_words(message):
                     f = open("stop_hinglish.txt", "r", encoding="utf-8")
                     stop_words = f.read().split()
@@ -360,26 +356,8 @@ def main():
                         ]
                     )
 
-                def remove_english(message):
-                    import nltk
-
-                    # nltk.download("stopwords")
-
-                    words = nltk.word_tokenize(df["Message"])
-                    stop_words = nltk.corpus.stopwords.words("english")
-                    filtered_words = [
-                        word for word in words if word.lower() not in stop_words
-                    ]
-
-                    # Join the filtered words back into a sentence
-
-                    filtered_text = " ".join(filtered_words)
-
                 def remove_stopwords(message):
                     import nltk
-
-                    nltk.download("stopwords")
-                    # words = nltk.word_tokenize(df["Message"])
 
                     stop_words = nltk.corpus.stopwords.words("english")
                     words = message.split()
@@ -443,9 +421,7 @@ def main():
                 df["Hour_Period"] = period
                 st.session_state.df = df
                 progress_bar.empty()
-                st.warning(
-                    "Process complete. Do navigate to <View Chat> page on sidebar."
-                )
+                st.info("Process complete. Do navigate to <View Chat> page on sidebar.")
                 st.session_state.visited_pages.add("Process Chat")
 
                 # @st.cache_data
@@ -652,6 +628,7 @@ def main():
                         for word in words_to_remove:
                             n_df = n_df[n_df != word]
                         n_df = n_df[n_df != "media omitted"]
+                        n_df = n_df[n_df != ""]
                         word_freq = collections.Counter(n_df)
                         st.dataframe(word_freq.most_common())
 
@@ -693,9 +670,22 @@ def main():
                 )
             else:
                 st.warning("Please upload the chat file, before proceeding.")
+
     elif page == "Sentiment Analysis":
         if "df" in st.session_state:
             new_df = st.session_state.new_df
+            import time
+
+            with st.spinner("Loading..."):
+                time.sleep(2)
+
+            progress_bar = st.progress(0)
+            for i in range(95):
+                time.sleep(0.05)
+                progress_bar.progress(i + 1)
+            st.info(
+                "Once you leave the page model will be reloaded (A drawback of streamlit framework)."
+            )
 
             def rem_emojis(text):
                 return "".join(char for char in text if char not in emoji.EMOJI_DATA)
@@ -716,48 +706,89 @@ def main():
             ]
             new_df["Message"] = new_df["Message"].apply(rem_emojis)
 
-            
-            from joblib import load
-
-            model_ = load("multinomialNB799.joblib")
-
-            # Making Predictions
-
-            predictions = model_.predict(new_df["Message"])
-
-            # converting predicted values to string labels
-
-            sentiment_labels = {-1: "negative", 0: "neutral", 1: "positive"}
-            predicted_sentiments = [sentiment_labels[pred] for pred in predictions]
-
-            # creating final Dataframe
-
-            result_df = pd.DataFrame(
-                {
-                    "Sender": new_df["Author"],
-                    "Message": new_df["Message"],
-                    "Sentiment": predicted_sentiments,
-                }
+            svm, lr, mnb = st.tabs(
+                ["Support Vector Machine", "Logistic regression", "Multinomial NB"]
             )
+            with svm:
 
-            # displaying dataframe
+                from joblib import load
 
-            st.dataframe(result_df, width=1500, height=700)
-            st.markdown("<hr style= 'width : 5'>", unsafe_allow_html=True)
+                model_ = load("pipeline_svm.joblib")
 
-            def convert_df(df):
-                # IMPORTANT: Cache the conversion to prevent computation on every rerun
+                # Making Predictions
+                st.text("Using model:" + str(model_))
+                predictions = model_.predict(new_df["Message"])
 
-                return df.to_csv().encode("utf-8")
+                # converting predicted values to string labels
+                sentiment_labels = {-1: "negative", 0: "neutral", 1: "positive"}
+                predicted_sentiments = [sentiment_labels[pred] for pred in predictions]
 
-            csv = convert_df(result_df)
+                # creating final Dataframe
+                result_df_svm = pd.DataFrame(
+                    {
+                        "Sender": new_df["Author"],
+                        "Message": new_df["Message"],
+                        "Sentiment": predicted_sentiments,
+                    }
+                )
 
-            st.download_button(
-                label="Download data as CSV",
-                data=csv,
-                file_name="sentiment_df.csv",
-                mime="text/csv",
-            )
+                # displaying dataframe
+                st.dataframe(result_df_svm, width=1500, height=700)
+                st.markdown("<hr style= 'width : 5'>", unsafe_allow_html=True)
+
+            with lr:
+                from joblib import load
+
+                model_ = load("pipeline_lr.joblib")
+
+                # Making Predictions
+                st.text("Using model:" + str(model_))
+                predictions = model_.predict(new_df["Message"])
+
+                # converting predicted values to string labels
+                sentiment_labels = {-1: "negative", 0: "neutral", 1: "positive"}
+                predicted_sentiments = [sentiment_labels[pred] for pred in predictions]
+
+                # creating final Dataframe
+                result_df_lr = pd.DataFrame(
+                    {
+                        "Sender": new_df["Author"],
+                        "Message": new_df["Message"],
+                        "Sentiment": predicted_sentiments,
+                    }
+                )
+
+                # displaying dataframe
+                st.dataframe(result_df_lr, width=1500, height=700)
+                st.markdown("<hr style= 'width : 5'>", unsafe_allow_html=True)
+
+            with mnb:
+                from joblib import load
+
+                model_ = load("multinomialNB799.joblib")
+
+                # Making Predictions
+                st.text("Using model:" + str(model_))
+                predictions = model_.predict(new_df["Message"])
+
+                # converting predicted values to string labels
+                sentiment_labels = {-1: "negative", 0: "neutral", 1: "positive"}
+                predicted_sentiments = [sentiment_labels[pred] for pred in predictions]
+
+                # creating final Dataframe
+                result_df = pd.DataFrame(
+                    {
+                        "Sender": new_df["Author"],
+                        "Message": new_df["Message"],
+                        "Sentiment": predicted_sentiments,
+                    }
+                )
+
+                # displaying dataframe
+                st.dataframe(result_df, width=1500, height=700)
+                st.markdown("<hr style= 'width : 5'>", unsafe_allow_html=True)
+            progress_bar.empty()
+
         else:
             st.warning("Please upload the chat file, before proceeding.")
     elif page == "Interactive Plots":
@@ -886,7 +917,7 @@ def main():
                     # Create a WordCloud object with increased max_words
 
                     wordcloud = WordCloud(
-                        width=1400, height=800, background_color="white", max_words=20
+                        width=1400, height=800, background_color="white", max_words=100
                     ).generate(text)
 
                     # Plot the WordCloud
@@ -898,6 +929,28 @@ def main():
                     st.pyplot(fig)
 
                 wordcloud_()
+
+                def wordcloud2():
+                    n_df = df["Message"]
+                    with open("abusive_main.txt", "r") as file:
+                        words_to_remove = file.read().splitlines()
+                    for word in words_to_remove:
+                        n_df = n_df[n_df != word]
+                    n_df = n_df[n_df != "media omitted"]
+                    n_df = n_df[n_df != "null"]
+
+                    wordcloud = WordCloud(
+                        width=1400, height=800, background_color="white", max_words=50
+                    ).generate(" ".join(n_df))
+
+                    plt.figure(figsize=(10, 10))
+                    plt.imshow(wordcloud, interpolation="bilinear")
+                    plt.axis("off")
+                    fig = plt.show()
+                    st.pyplot(fig)
+
+                wordcloud2()
+
         else:
             st.warning("Please upload the chat file, before proceeding.")
 
