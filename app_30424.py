@@ -800,7 +800,7 @@ def main():
             import seaborn as sns
 
             df = st.session_state.df
-            st.set_option("deprecation.showPyplotGlobalUse", False)
+            #st.set_option("deprecation.showPyplotGlobalUse", False)
             st.markdown(
                 "<h4 style='font-size:18; color:#E0FFFF; text-align:justify;text-justify: initial;font-family:monospace'>Displaying Streamlit Interactive Plots: </h4><br>",
                 unsafe_allow_html=True,
