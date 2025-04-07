@@ -1,5 +1,5 @@
 # WhatsApp_Chat_Analysis_WebApp
-
+**Repository code not being maintained.** <br>
 📊📱 This repository contains code written in Python for analyzing WhatsApp chat data. This is a Web Application based on `Streamlit` framework. 
 
 ### Files:
