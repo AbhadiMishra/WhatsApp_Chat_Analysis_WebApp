@@ -825,30 +825,30 @@ def main():
             with Busiest_Hours:
 
                 def heatmap_():
-    			fig, ax = plt.subplots(figsize=(10, 5))  # Create figure and axes
-    			sns.heatmap(
-        			df.pivot_table(
-           			 index="Day_name",
-            			columns="Hour_Period",
-            			values="Message",
-            			aggfunc="count",
-        			),
-        			cmap="crest",
-        			vmin=0,
-        			vmax=25,
-        			linewidths=0.5,
-        			cbar=False,
-        			square=True,
-        			ax=ax,  # Direct the plot to the specific Axes
-    			)
-   			ax.set(xlabel="", ylabel="")
-    			ax.xaxis.tick_top()
-    			plt.xticks(rotation="vertical")
+                    plt.figure(figsize=(10, 5))
+                    ax = sns.heatmap(
+                        df.pivot_table(
+                            index="Day_name",
+                            columns="Hour_Period",
+                            values="Message",
+                            aggfunc="count",
+                        ),
+                        cmap="crest",
+                        vmin=0,
+                        vmax=25,
+                        linewidths=0.5,
+                        cbar=False,
+                        square=True,
+                    )
+                    ax.set(xlabel="", ylabel="")
+                    ax.xaxis.tick_top()
+                    plt.xticks(rotation="vertical")
+                    fig = plt.show()
+                    # Display the heatmap using st.pyplot()
 
-    			st.pyplot(fig)  # Pass the explicit figure
+                    st.pyplot(fig)
 
-		heatmap_()
-
+                heatmap_()
             with Busiest_Month:
 
                 def busyMonth():
